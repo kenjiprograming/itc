@@ -1,3 +1,4 @@
 from django.contrib import admin
+from nippo.models import NippoModel
 
-# Register your models here.
+admin.site.register(NippoModel)
