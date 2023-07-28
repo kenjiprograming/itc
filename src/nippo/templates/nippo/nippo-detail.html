@@ -5,9 +5,9 @@
 {% endblock %}
 
 {% block content %}
-    <h1>今日のラッキーナンバーはこちら→ {{random_number}}</h1>
-    <p>あなたの入力した番号はこちら→ {{number}}</p>
-    <p>{{random_number}} + {{number}} = {{random_number|add:number}}</p>
+    <p>
+        {{obj}}
+    </p>
 
     <a href="{% url 'nippo-list' %}">List Page</a>
     <a href="{% url 'nippo-create' %}">Create Page</a>

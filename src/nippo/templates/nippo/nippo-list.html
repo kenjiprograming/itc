@@ -6,7 +6,14 @@
 
 {% block content %}
     <h1>こちらは日報アプリのページになります</h1>
-    <p>ブロッックタグを使って表示してます</p>
 
-    <a href="{% url 'nippo-detail' 2 %}">Detail Page</a>
+    <div>
+        <ul>
+            {% for obj in obj_list %}
+                <li><a href="{% url 'nippo-detail' obj.pk %}">{{obj.title}}</a></li>
+                
+            {% endfor %}
+        </ul>
+    </div>
+
 {% endblock %}

@@ -1,16 +1,21 @@
 from django.shortcuts import render
 from random import randint
+from .models import NippoModel
 
 def nippoListView(request):
-    return render(request, 'nippo/nippo-list.html')
+    template_name =  'nippo/nippo-list.html'
+    ctx = {}
+    obj_list = NippoModel.objects.all();
+    ctx['obj_list'] = obj_list
 
-def nippoDetailView(request, number):
+    return render(request, template_name, ctx)
+
+def nippoDetailView(request, pk):
     template_name = 'nippo/nippo-detail.html'
-    random_int = randint(1,10)
-    ctx = {
-        'random_number': random_int,
-        'number': number,
-    }
+    ctx = {}
+    obj = NippoModel.objects.get(pk=pk)
+    ctx['obj'] = obj
+
     return render(request, template_name, ctx)
 
 def nippoCreateView(request):
