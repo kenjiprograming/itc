@@ -1,6 +1,8 @@
 from django.urls import path
-from .views import nippoListView
+from .views import nippoDetailView, nippoListView, nippoCreateView
  
 urlpatterns = [
-  path('', nippoListView)
+  path('', nippoListView, name='nippo-list'),
+  path('detail/<int:number>', nippoDetailView, name='nippo-detail'),
+  path('create/', nippoCreateView, name='nippo-create'),
 ]
