@@ -52,4 +52,7 @@ def nippoDeleteView(request, pk):
     obj = get_object_or_404(NippoModel, pk=pk)
     ctx = {'object': obj}
 
+    if request.POST:
+        obj.delete()
+
     return render(request, template_name, ctx)
