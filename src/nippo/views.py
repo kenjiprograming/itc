@@ -38,6 +38,7 @@ def nippoUpdateView(request, pk):
 
     form = NippoFormsClass(request.POST or initial_value)
     ctx = {'form': form}
+    ctx['object'] = obj
 
     if form.is_valid():
         obj.title = form.cleaned_data["title"]
