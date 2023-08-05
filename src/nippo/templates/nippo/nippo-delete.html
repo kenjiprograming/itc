@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block title %}
+    日報削除ページ
+{% endblock  %}
+
+{% block content %}
+<form method="POST">{% csrf_token %}
+    <p>削除しますと復旧できません。よろしいですか？</p>
+    <input type="submit" value="削除する">
+</form>
+{% endblock  %}
