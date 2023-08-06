@@ -6,7 +6,7 @@ def nippoListView(request):
     template_name =  'nippo/nippo-list.html'
     ctx = {}
     obj_list = NippoModel.objects.all();
-    ctx['obj_list'] = obj_list
+    ctx['object_list'] = obj_list
 
     return render(request, template_name, ctx)
 
@@ -14,7 +14,7 @@ def nippoDetailView(request, pk):
     template_name = 'nippo/nippo-detail.html'
     ctx = {}
     obj = get_object_or_404(NippoModel, pk=pk)
-    ctx['obj'] = obj
+    ctx['object'] = obj
 
     return render(request, template_name, ctx)
 
