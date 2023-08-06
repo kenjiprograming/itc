@@ -11,4 +11,6 @@
 
     <a href="{% url 'nippo-list' %}">List Page</a>
     <a href="{% url 'nippo-create' %}">Create Page</a>
+    <a href="{% url 'nippo-update' obj.pk %}">Update Page</a>
+    <a href="{% url 'nippo-delete' obj.pk %}">Delete Page</a>
 {% endblock %}

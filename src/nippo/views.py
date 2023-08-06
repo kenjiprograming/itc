@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from .models import NippoModel
 from .forms import NippoFormsClass
 
@@ -28,6 +28,7 @@ def nippoCreateView(request):
         content = form.cleaned_data["content"]
         obj = NippoModel(title=title, content=content)
         obj.save()
+        return redirect('nippo-list')
 
     return render(request, template_name, ctx)
 
@@ -44,6 +45,9 @@ def nippoUpdateView(request, pk):
         obj.title = form.cleaned_data["title"]
         obj.content = form.cleaned_data["content"]
         obj.save()
+        
+        if request.POST:
+            return redirect('nippo-list')
 
     return render(request, template_name, ctx)
 
@@ -54,5 +58,6 @@ def nippoDeleteView(request, pk):
 
     if request.POST:
         obj.delete()
+        return redirect('nippo-list')
 
     return render(request, template_name, ctx)
