@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import NippoModel
-from .forms import NippoFormsClass
+from .forms import NippoFormsClass, ImageUploadForm
+from django.views.generic.edit import CreateView
 
 def nippoListView(request):
     template_name =  'nippo/nippo-list.html'
@@ -61,3 +62,8 @@ def nippoDeleteView(request, pk):
         return redirect('nippo-list')
 
     return render(request, template_name, ctx)
+
+class ImageUploadView(CreateView):
+    template_name = 'nippo/image-upload.html'
+    form_class = ImageUploadForm
+    success_url = '/'

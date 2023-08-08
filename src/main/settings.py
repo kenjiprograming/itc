@@ -107,7 +107,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR / "static_local" ]
 
-MEDIA_URL = '/media/'
+MEDIA_URL = '/mediaUrl/'
 MEDIA_ROOT = BASE_DIR / "media_local"
 
 # Default primary key field type
