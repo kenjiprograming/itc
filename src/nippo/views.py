@@ -4,7 +4,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from .models import NippoModel
 from .forms import NippoFormsClass, ImageUploadForm
 from django.views.generic.edit import CreateView
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
 
 class NippoListView(ListView):
     template_name =  'nippo/nippo-list.html'
@@ -12,13 +12,9 @@ class NippoListView(ListView):
     def get_queryset(self):
         return NippoModel.objects.all()
 
-def nippoDetailView(request, pk):
+class NippoDetailView(DetailView):
     template_name = 'nippo/nippo-detail.html'
-    ctx = {}
-    obj = get_object_or_404(NippoModel, pk=pk)
-    ctx['object'] = obj
-
-    return render(request, template_name, ctx)
+    model = NippoModel
 
 def nippoCreateView(request):
     template_name = 'nippo/nippo-form.html'
