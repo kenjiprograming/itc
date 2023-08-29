@@ -1,15 +1,16 @@
+from typing import Any
+from django.db.models.query import QuerySet
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import NippoModel
 from .forms import NippoFormsClass, ImageUploadForm
 from django.views.generic.edit import CreateView
+from django.views.generic import ListView
 
-def nippoListView(request):
+class NippoListView(ListView):
     template_name =  'nippo/nippo-list.html'
-    ctx = {}
-    obj_list = NippoModel.objects.all();
-    ctx['object_list'] = obj_list
 
-    return render(request, template_name, ctx)
+    def get_queryset(self):
+        return NippoModel.objects.all()
 
 def nippoDetailView(request, pk):
     template_name = 'nippo/nippo-detail.html'
