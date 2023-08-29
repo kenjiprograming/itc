@@ -1,10 +1,11 @@
 from typing import Any
 from django.db.models.query import QuerySet
+from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import NippoModel
 from .forms import NippoFormsClass, ImageUploadForm
 from django.views.generic.edit import CreateView
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, FormView
 
 class NippoListView(ListView):
     template_name =  'nippo/nippo-list.html'
@@ -15,6 +16,18 @@ class NippoListView(ListView):
 class NippoDetailView(DetailView):
     template_name = 'nippo/nippo-detail.html'
     model = NippoModel
+
+class NippoCreateFormView(FormView):
+    template_name = 'nippo-form.html'
+    form_class = NippoFormsClass
+    success_url = "/nippo/"
+
+    def form_valid(self, form):
+        data = form.cleaned_data
+        obj = NippoModel(**data)
+        obj.save()
+        return super().form_valid(form)
+
 
 def nippoCreateView(request):
     template_name = 'nippo/nippo-form.html'
