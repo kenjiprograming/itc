@@ -1,6 +1,7 @@
 from typing import Any
 from django.db.models.query import QuerySet
 from django.http import HttpResponse
+from django.urls import reverse, reverse_lazy
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import NippoModel
 from .forms import NippoFormsClass, ImageUploadForm
@@ -18,16 +19,15 @@ class NippoDetailView(DetailView):
     model = NippoModel
 
 class NippoCreateFormView(FormView):
-    template_name = 'nippo-form.html'
+    template_name = 'nippo/nippo-form.html'
     form_class = NippoFormsClass
-    success_url = "/nippo/"
+    success_url = reverse_lazy('nippo-list')
 
     def form_valid(self, form):
         data = form.cleaned_data
         obj = NippoModel(**data)
         obj.save()
         return super().form_valid(form)
-
 
 def nippoCreateView(request):
     template_name = 'nippo/nippo-form.html'
