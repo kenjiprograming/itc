@@ -4,9 +4,9 @@ from django.http import HttpResponse
 from django.urls import reverse, reverse_lazy
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import NippoModel
-from .forms import NippoFormsClass, ImageUploadForm
+from .forms import NippoFormsClass, ImageUploadForm, NippoModelForm
 from django.views.generic.edit import CreateView
-from django.views.generic import ListView, DetailView, FormView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView
 
 class NippoListView(ListView):
     template_name =  'nippo/nippo-list.html'
@@ -18,30 +18,21 @@ class NippoDetailView(DetailView):
     template_name = 'nippo/nippo-detail.html'
     model = NippoModel
 
-class NippoCreateFormView(FormView):
+class NippoCreateModelFormView(CreateView):
     template_name = 'nippo/nippo-form.html'
-    form_class = NippoFormsClass
+    form_class = NippoModelForm
     success_url = reverse_lazy('nippo-list')
 
-    def form_valid(self, form):
-        data = form.cleaned_data
-        obj = NippoModel(**data)
-        obj.save()
-        return super().form_valid(form)
+class ImageUploadView(CreateView):
+    template_name = 'nippo/image-upload.html'
+    form_class = ImageUploadForm
+    success_url = '/'
 
-def nippoCreateView(request):
+class NippoUpdateModelFormView(UpdateView):
     template_name = 'nippo/nippo-form.html'
-    form = NippoFormsClass(request.POST or None)
-    ctx = {'form': form}
-
-    if form.is_valid():
-        title = form.cleaned_data["title"]
-        content = form.cleaned_data["content"]
-        obj = NippoModel(title=title, content=content)
-        obj.save()
-        return redirect('nippo-list')
-
-    return render(request, template_name, ctx)
+    model = NippoModel
+    form_class = NippoModelForm
+    success_url = reverse_lazy('nippo-list')
 
 def nippoUpdateView(request, pk):
     template_name = 'nippo/nippo-form.html'
@@ -73,7 +64,3 @@ def nippoDeleteView(request, pk):
 
     return render(request, template_name, ctx)
 
-class ImageUploadView(CreateView):
-    template_name = 'nippo/image-upload.html'
-    form_class = ImageUploadForm
-    success_url = '/'

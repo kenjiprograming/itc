@@ -22,7 +22,7 @@
                     <p class="card-text">
                         {{ obj.content }}
                     </p>
-                    <a href={% url 'nippo-update' obj.pk %} class="card-link">
+                    <a href={% url 'nippo-update' obj.pk %} class="btn btn-primary btn-sm">
                         編集
                     </a>
                     <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal-{{obj.pk}}">
