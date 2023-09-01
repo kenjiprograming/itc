@@ -6,7 +6,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from .models import NippoModel
 from .forms import NippoFormsClass, ImageUploadForm, NippoModelForm
 from django.views.generic.edit import CreateView
-from django.views.generic import ListView, DetailView, CreateView, UpdateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
 class NippoListView(ListView):
     template_name =  'nippo/nippo-list.html'
@@ -32,6 +32,11 @@ class NippoUpdateModelFormView(UpdateView):
     template_name = 'nippo/nippo-form.html'
     model = NippoModel
     form_class = NippoModelForm
+    success_url = reverse_lazy('nippo-list')
+
+class NippoDeleteModelView(DeleteView):
+    template_name = 'nippo/nippo-delete.html'
+    model = NippoModel
     success_url = reverse_lazy('nippo-list')
 
 def nippoUpdateView(request, pk):
